@@ -16,6 +16,12 @@ test:
   database: guestbook_test
   username: jay
 
+staging:
+  <<: *default
+  database: guestbook_staging
+  username: deploy
+  password: <%= ENV["GUESTBOOK_DB_PASSWORD"] %>
+
 production:
   <<: *default
   database: guestbook_production
