@@ -16,7 +16,7 @@ set -e
 TIMEOUT=${TIMEOUT-60}
 APP_ROOT=/var/www/guestbook/current
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="su -c '$APP_ROOT/bin/unicorn -D -c $APP_ROOT/config/unicorn.rb' - deploy"
+CMD="/usr/bin/unicorn -D -c $APP_ROOT/config/unicorn.rb"
 INIT_CONF=$APP_ROOT/config/init.conf
 UPGRADE_DELAY=${UPGRADE_DELAY-2}
 action="$1"
@@ -39,7 +39,7 @@ oldsig () {
 case $action in
 start)
 	sig 0 && echo >&2 "Already running" && exit 0
-	$CMD
+	su -c "$CMD" - deploy
 	;;
 stop)
 	sig QUIT && exit 0
@@ -51,8 +51,8 @@ force-stop)
 	;;
 restart|reload)
 	sig HUP && echo reloaded OK && exit 0
-	echo >&2 "Couldn't reload, starting '$CMD' instead"
-	$CMD
+	echo >&2 "Couldn't reload, starting 'su -c "$CMD" - deploy' instead"
+	su -c "$CMD" - deploy
 	;;
 upgrade)
 	if oldsig 0
@@ -89,8 +89,8 @@ upgrade)
 		fi
 		exit 0
 	fi
-	echo >&2 "Couldn't upgrade, starting '$CMD' instead"
-	$CMD
+	echo >&2 "Couldn't upgrade, starting 'su -c "$CMD" - deploy' instead"
+	su -c "$CMD" - deploy
 	;;
 reopen-logs)
 	sig USR1
