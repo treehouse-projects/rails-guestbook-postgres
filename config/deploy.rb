@@ -3,7 +3,8 @@ lock "3.7.2"
 
 set :application, "guestbook"
 set :repo_url, "git@github.com:treehouse-projects/rails-guestbook-postgres.git"
-set :deploy_to, "/home/#{fetch :user}/#{fetch :application}"
+set :deploy_user, "deploy"
+set :deploy_to, "/home/#{fetch :deploy_user}/#{fetch :application}"
 set :branch, "capistrano"
 
 # Default branch is :master
