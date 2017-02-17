@@ -10,8 +10,6 @@ class SignaturesController < ApplicationController
   # GET /signatures/1
   # GET /signatures/1.json
   def show
-    # TODO remove
-    render text: "one"
   end
 
   # GET /signatures/new
