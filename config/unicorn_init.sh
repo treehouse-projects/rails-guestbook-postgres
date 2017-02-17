@@ -12,14 +12,16 @@ set -e
 # Example init script, this can be used with nginx, too,
 # since nginx and unicorn accept the same signals.
 
+action="$1"
+environment="$2"
+
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
 APP_ROOT=/home/deploy/guestbook/current
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-CMD="cd $APP_ROOT && RAILS_ENV=production bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb"
+CMD="cd $APP_ROOT && bundle exec unicorn -D -c $APP_ROOT/config/unicorn.rb -E $environment"
 INIT_CONF=$APP_ROOT/config/init.conf
 UPGRADE_DELAY=${UPGRADE_DELAY-2}
-action="$1"
 set -u
 
 test -f "$INIT_CONF" && . $INIT_CONF
