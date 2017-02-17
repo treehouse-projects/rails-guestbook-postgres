@@ -11,8 +11,7 @@ class SignaturesController < ApplicationController
   # GET /signatures/1.json
   def show
     # TODO remove
-    @signature = Signature.new
-    @signature.content = "foo"
+    @signature = Signature.first
   end
 
   # GET /signatures/new
