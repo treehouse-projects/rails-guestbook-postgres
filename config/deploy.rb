@@ -6,6 +6,7 @@ set :repo_url, "git@github.com:treehouse-projects/rails-guestbook-postgres.git"
 set :deploy_user, "deploy"
 set :deploy_to, "/home/#{fetch :deploy_user}/#{fetch :application}"
 set :branch, "capistrano"
+set :linked_files, [".rbenv-vars"]
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
