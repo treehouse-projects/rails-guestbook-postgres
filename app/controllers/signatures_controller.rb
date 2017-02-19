@@ -10,7 +10,6 @@ class SignaturesController < ApplicationController
   # GET /signatures/1
   # GET /signatures/1.json
   def show
-    render text: "hello"
   end
 
   # GET /signatures/new
